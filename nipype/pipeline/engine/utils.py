@@ -175,7 +175,7 @@ def write_node_report(node, result=None, is_mapnode=False):
         "prev_wd": getattr(result.runtime, "prevcwd", "<not-set>"),
     }
 
-    for prop in ("cmdline", "mem_peak_gb", "cpu_percent"):
+    for prop in ("cmdline", "mem_peak_gb", "cpu_percent", "num_threads"):
         if hasattr(result.runtime, prop):
             rst_dict[prop] = getattr(result.runtime, prop)
 

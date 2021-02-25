@@ -481,6 +481,7 @@ class BaseInterface(Interface):
 
                 runtime.mem_peak_gb = None
                 runtime.cpu_percent = None
+                runtime.num_threads = None
 
                 # Read .prof file in and set runtime values
                 vals = np.loadtxt(mon_sp.fname, delimiter=",")
@@ -488,6 +489,7 @@ class BaseInterface(Interface):
                     vals = np.atleast_2d(vals)
                     runtime.mem_peak_gb = vals[:, 2].max() / 1024
                     runtime.cpu_percent = vals[:, 1].max()
+                    runtime.num_threads = vals[:, 4].max()
 
                     runtime.prof_dict = {
                         "time": vals[:, 0].tolist(),

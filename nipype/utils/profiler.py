@@ -94,7 +94,10 @@ class ResourceMonitor(threading.Thread):
             except psutil.NoSuchProcess:
                 pass
 
-        print("%f,%f,%f,%f" % (time(), cpu, rss / _MB, vms / _MB), file=self._logfile)
+        print("%f,%f,%f,%f,%f" % (
+            time(), cpu, rss / _MB, vms / _MB, _get_num_threads(
+                self._process.pid)
+        ), file=self._logfile)
         self._logfile.flush()
 
     def run(self):
@@ -140,8 +143,11 @@ def log_nodes_cb(node, status):
         "start": getattr(node.result.runtime, "startTime"),
         "finish": getattr(node.result.runtime, "endTime"),
         "duration": getattr(node.result.runtime, "duration"),
-        "runtime_threads": getattr(node.result.runtime, "cpu_percent", "N/A"),
-        "runtime_memory_gb": getattr(node.result.runtime, "mem_peak_gb", "N/A"),
+        "runtime_cpu_percent": getattr(node.result.runtime, "cpu_percent",
+                                       "N/A"),
+        "runtime_threads": getattr(node.resupt.runtime, "num_threads", "N/A")
+        "runtime_memory_gb": getattr(node.result.runtime, "mem_peak_gb",
+                                     "N/A"),
         "estimated_memory_gb": node.mem_gb,
         "num_threads": node.n_procs,
     }
