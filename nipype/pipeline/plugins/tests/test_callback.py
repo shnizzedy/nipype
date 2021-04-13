@@ -10,9 +10,11 @@ import nipype.pipeline.engine as pe
 
 try:
     import pandas
+
     has_pandas = True
 except ImportError:
     has_pandas = False
+
 
 def func():
     return
@@ -69,7 +71,7 @@ def test_callback_exception(tmpdir, plugin, stop_on_first_crash):
 
 
 @pytest.mark.parametrize("plugin", ["Linear", "MultiProc", "LegacyMultiProc"])
-@pytest.mark.skipif(not has_pandas, "Test requires pandas")
+@pytest.mark.skipif(not has_pandas, reason="Test requires pandas")
 def test_callback_gantt(tmpdir, plugin):
     import logging
 
