@@ -12,7 +12,7 @@ try:
     import pandas
     has_pandas = True
 except ImportError:
-     has_pandas = False
+    has_pandas = False
 
 def func():
     return
